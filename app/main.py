@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.core.database import db
 from app.core.dependencies import get_current_user
+from app.core.config import FRONTEND_URL
 
 from app.routes.products import router as products_router
 from app.routes.stock_movements import router as stock_router
@@ -14,7 +15,11 @@ app = FastAPI(title="Warehouse Backend")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=[
+        "http://localhost:3000",
+        "https://warehouse-ai-frontend.vercel.app",
+        FRONTEND_URL
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
